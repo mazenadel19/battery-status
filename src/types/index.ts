@@ -1,1 +1,1 @@
-export type { IChargingState, IChargingStateResponse } from '@/types/pages/status'
+export type { IChargingState, IChargingStateResponse, TFetchState } from '@/types/pages/status'

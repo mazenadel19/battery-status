@@ -1,12 +1,16 @@
-import { useEffect, useState } from 'react'
 import { AreaChart } from '@/components'
-import { IChargingState, IChargingStateResponse } from '@/types'
+import { IChargingStateResponse, TFetchState } from '@/types'
+import { Box, Typography } from '@mui/material'
+import { useEffect, useState } from 'react'
 
 export const StatusAreaChart = () => {
-    const [rowData, setRowData] = useState<IChargingState[]>([])
-
-    const data = rowData.map((item) => item.chargingLevel)
-    const xLabels = rowData.map((item) =>
+    const [fetchState, setFetchState] = useState<TFetchState>({
+        status: 'idle',
+        data: [],
+        error: null,
+    })
+    const data = fetchState.data.map((item) => item.chargingLevel)
+    const xLabels = fetchState.data.map((item) =>
         new Date(item.date).toLocaleTimeString('en-GB', {
             day: '2-digit',
             month: '2-digit',
@@ -17,11 +21,59 @@ export const StatusAreaChart = () => {
     )
 
     useEffect(() => {
+        setFetchState((prev) => ({ ...prev, status: 'loading', data: [], error: null }))
         fetch('/backend-response.json')
             .then((response) => response.json())
-            .then((jsonData) => setRowData((jsonData as IChargingStateResponse).chargingStates))
-            .catch((error) => console.error('Error loading JSON:', error))
+            .then((jsonData) =>
+                setFetchState((prev) => ({
+                    ...prev,
+                    status: 'success',
+                    data: (jsonData as IChargingStateResponse).chargingStates,
+                    error: null,
+                }))
+            )
+            .catch((error: Error) => {
+                setFetchState((prev) => ({
+                    ...prev,
+                    status: 'failed',
+                    error,
+                    data: [],
+                }))
+            })
     }, [])
 
-    return <AreaChart data={data} xLabels={xLabels} label="Battery Status" />
+    switch (fetchState.status) {
+        case 'idle':
+            return (
+                <Box>
+                    <Typography fontSize={16} fontWeight="medium" color="textSecondary" padding={2}>
+                        No data yet...
+                    </Typography>
+                </Box>
+            )
+        case 'loading':
+            return (
+                <Box>
+                    <Typography fontSize={16} fontWeight="medium" color="textSecondary" padding={2}>
+                        Loading...
+                    </Typography>
+                </Box>
+            )
+        case 'success':
+            return <AreaChart data={data} xLabels={xLabels} label="Battery Status" />
+        case 'failed':
+            return (
+                <Box>
+                    <Typography fontSize={16} fontWeight="medium" color="error" padding={2}>
+                        Error: {fetchState.error.message}
+                    </Typography>
+                </Box>
+            )
+        default:
+            return (
+                <Box>
+                    <Typography>Unknown status...</Typography>
+                </Box>
+            )
+    }
 }

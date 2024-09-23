@@ -1,5 +1,5 @@
 // MUI
-import { Box, Stack, Toolbar } from '@mui/material'
+import { Box, Toolbar } from '@mui/material'
 // React-Router
 import { Outlet } from 'react-router-dom'
 // Components
@@ -8,15 +8,15 @@ import { Header } from '@/components'
 import ErrorBoundary from '@/pages/error-pages/error-boundary'
 
 const AppLayout = () => (
-    <Stack>
+    <Box sx={{ display: 'flex', height: '100vh' }}>
         <Header />
-        <Box component="main" sx={{ p: 3 }}>
+        <Box component="main" sx={{ p: 3, display: 'flex', flexDirection: 'column', flex: 1 }}>
             <Toolbar />
             <ErrorBoundary>
                 <Outlet />
             </ErrorBoundary>
         </Box>
-    </Stack>
+    </Box>
 )
 
 export default AppLayout

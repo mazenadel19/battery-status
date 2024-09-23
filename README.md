@@ -1,39 +1,41 @@
-# Vite + TypeScript + React Template
+# Sonnen Battery Status Dashboard
 
-This is a streamlined template for React applications using Vite, TypeScript, and a well-organized folder structure for efficient development.
+This project is a React application built with Vite, TypeScript, and Material-UI. It displays battery charging data in a user-friendly dashboard.
 
 ## Project Structure
 
+-   `public/`: Public assets and mock data (backend-response.json).
 -   `src/`: Contains the source code of the application.
-    -   `assets/`: Static assets such as images, fonts, etc.
     -   `components/`: Reusable UI components.
+        -   `charts/`: Chart components (e.g., AreaChart).
+        -   `ui/`: UI components (e.g., Header).
     -   `constants/`: Constants.
-    -   `hooks/`: Custom hooks.
-    -   `lib/`: Utility libraries.
+    -   `layout/`: Layout components (e.g., AppLayout).
     -   `pages/`: Application pages.
-    -   `providers/`: Providers.
+    -   `providers/`: Providers (e.g., AppProvider).
     -   `routes/`: Application routes.
-    -   `services/`: Services.
-    -   `stores/`: Stores.
     -   `types/`: Type definitions.
-    -   `utils/`: Utility functions.
+    -   `theme/`: Theme configuration.
     -   `App.tsx`: Root component.
     -   `main.tsx`: Entry point.
-
-This structure promotes better organization and scalability for your React projects.
 
 ## Features
 
 -   ⚡️ Vite for fast development and building
 -   🔑 TypeScript for type safety
 -   ⚛️ React for building user interfaces
--   📁 Organized folder structure for scalability
--   🧹 ESLint for code quality (pre-configured by Vite)
+-   📊 Material-UI for consistent, responsive, and accessible design
+-   📈 MUI X-Charts for accessible data visualization
+-   🧭 React Router for navigation
+-   🎨 Emotion for CSS-in-JS styling
+-   🧹 ESLint for code quality
+-   🔄 Absolute imports configured in ESLint
 -   💅 Prettier for code formatting
 -   🐶 Husky for Git hooks
 -   🚫 lint-staged for running linters on Git staged files
 -   📝 commitlint for conventional commit messages
--   🔄 Absolute imports configured in ESLint
+-   🔄 Absolute imports configured
+-   📦 Lazy loading and code splitting for optimized performance
 
 ## Getting Started
 
@@ -53,6 +55,7 @@ This structure promotes better organization and scalability for your React proje
 -   `pnpm run build`: Build for production
 -   `pnpm run lint`: Run ESLint
 -   `pnpm run preview`: Preview the production build locally
+-   `pnpm run prepare`: Set up Husky
 
 ## Commit Convention
 

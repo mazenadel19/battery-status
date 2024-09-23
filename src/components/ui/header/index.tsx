@@ -23,7 +23,7 @@ import styles from './index.module.css'
 const drawerWidth = 240
 const navItems = [
     { text: 'Home', pathname: '/' },
-    { text: 'Second Page', pathname: 'second-page' },
+    { text: 'Status', pathname: 'status' },
 ]
 
 export function Header() {

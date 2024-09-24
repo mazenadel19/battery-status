@@ -1,5 +1,8 @@
+import { IChargingStateResponse } from '@/types'
+
 export const statusApi = {
-    getStatus: () => {
-        return fetch('/backend-response.json').then((response) => response.json())
+    getStatus: async () => {
+        const response = await fetch('/backend-response.json')
+        return await (response.json() as Promise<IChargingStateResponse>)
     },
 }

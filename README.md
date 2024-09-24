@@ -36,6 +36,7 @@ This project is a React application built with Vite, TypeScript, and Material-UI
 -   📝 commitlint for conventional commit messages
 -   🔄 Absolute imports configured
 -   📦 Lazy loading and code splitting for optimized performance
+-   🤖 robots.txt file for proper web crawler guidance
 
 ## Getting Started
 

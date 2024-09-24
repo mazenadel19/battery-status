@@ -1,4 +1,5 @@
 import { AreaChart } from '@/components'
+import { statusApi } from '@/services'
 import { IChargingStateResponse, TFetchState } from '@/types'
 import { Box, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
@@ -22,8 +23,8 @@ export const StatusAreaChart = () => {
 
     useEffect(() => {
         setFetchState((prev) => ({ ...prev, status: 'loading', data: [], error: null }))
-        fetch('/backend-response.json')
-            .then((response) => response.json())
+        statusApi
+            .getStatus()
             .then((jsonData) =>
                 setFetchState((prev) => ({
                     ...prev,

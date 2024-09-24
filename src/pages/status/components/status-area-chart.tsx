@@ -1,4 +1,5 @@
 import { AreaChart } from '@/components'
+import { CONSTANTS } from '@/constants'
 import { useFetch } from '@/hooks/useFetch'
 import { statusApi } from '@/services'
 import { IChargingStateResponse } from '@/types'
@@ -20,7 +21,7 @@ export const StatusAreaChart = () => {
         ) ?? []
 
     switch (fetchState.status) {
-        case 'idle':
+        case CONSTANTS.idle:
             return (
                 <Box>
                     <Typography fontSize={16} fontWeight="medium" color="textSecondary" padding={2}>
@@ -28,7 +29,7 @@ export const StatusAreaChart = () => {
                     </Typography>
                 </Box>
             )
-        case 'loading':
+        case CONSTANTS.loading:
             return (
                 <Box>
                     <Typography fontSize={16} fontWeight="medium" color="textSecondary" padding={2}>
@@ -36,9 +37,9 @@ export const StatusAreaChart = () => {
                     </Typography>
                 </Box>
             )
-        case 'success':
+        case CONSTANTS.success:
             return <AreaChart data={data} xLabels={xLabels} label="Battery Status" />
-        case 'failed':
+        case CONSTANTS.failed:
             return (
                 <Box>
                     <Typography fontSize={16} fontWeight="medium" color="error" padding={2}>

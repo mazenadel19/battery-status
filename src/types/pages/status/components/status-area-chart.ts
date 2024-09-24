@@ -20,9 +20,9 @@ interface TFetchStatusLoading {
     error: null
 }
 
-interface TFetchStatusSuccess {
+interface TFetchStatusSuccess<T> {
     status: 'success'
-    data: IChargingState[]
+    data: T
     error: null
 }
 
@@ -32,4 +32,4 @@ interface TFetchStatusFailed {
     error: Error
 }
 
-export type TFetchState = TFetchStatusIdle | TFetchStatusLoading | TFetchStatusSuccess | TFetchStatusFailed
+export type TFetchState<T> = TFetchStatusIdle | TFetchStatusLoading | TFetchStatusSuccess<T> | TFetchStatusFailed

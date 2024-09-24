@@ -1,11 +1,11 @@
 import { AreaChart } from '@/components'
 import { statusApi } from '@/services'
-import { IChargingStateResponse, TFetchState } from '@/types'
+import { IChargingState, TFetchState } from '@/types'
 import { Box, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
 
 export const StatusAreaChart = () => {
-    const [fetchState, setFetchState] = useState<TFetchState>({
+    const [fetchState, setFetchState] = useState<TFetchState<IChargingState[]>>({
         status: 'idle',
         data: [],
         error: null,
@@ -23,24 +23,27 @@ export const StatusAreaChart = () => {
 
     useEffect(() => {
         setFetchState((prev) => ({ ...prev, status: 'loading', data: [], error: null }))
-        statusApi
-            .getStatus()
-            .then((jsonData) =>
+        const fetchData = async () => {
+            try {
+                const jsonData = await statusApi.getStatus()
                 setFetchState((prev) => ({
                     ...prev,
                     status: 'success',
-                    data: (jsonData as IChargingStateResponse).chargingStates,
+                    data: jsonData.chargingStates,
                     error: null,
                 }))
-            )
-            .catch((error: Error) => {
-                setFetchState((prev) => ({
-                    ...prev,
-                    status: 'failed',
-                    error,
-                    data: [],
-                }))
-            })
+            } catch (error) {
+                if (error instanceof Error) {
+                    setFetchState((prev) => ({
+                        ...prev,
+                        status: 'failed',
+                        error,
+                        data: [],
+                    }))
+                }
+            }
+        }
+        void fetchData()
     }, [])
 
     switch (fetchState.status) {

@@ -1,0 +1,5 @@
+export const statusApi = {
+    getStatus: () => {
+        return fetch('/backend-response.json').then((response) => response.json())
+    },
+}

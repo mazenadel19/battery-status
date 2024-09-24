@@ -1,5 +1,1 @@
-export type {
-    IChargingState,
-    IChargingStateResponse,
-    TFetchState,
-} from '@/types/pages/status/components/status-area-chart'
+export type { IChargingStateResponse, TFetchState } from '@/types/pages/status/components/status-area-chart'

@@ -1,50 +1,23 @@
 import { AreaChart } from '@/components'
+import { useFetch } from '@/hooks/useFetch'
 import { statusApi } from '@/services'
-import { IChargingState, TFetchState } from '@/types'
+import { IChargingStateResponse } from '@/types'
 import { Box, Typography } from '@mui/material'
-import { useEffect, useState } from 'react'
 
 export const StatusAreaChart = () => {
-    const [fetchState, setFetchState] = useState<TFetchState<IChargingState[]>>({
-        status: 'idle',
-        data: [],
-        error: null,
-    })
-    const data = fetchState.data.map((item) => item.chargingLevel)
-    const xLabels = fetchState.data.map((item) =>
-        new Date(item.date).toLocaleTimeString('en-GB', {
-            day: '2-digit',
-            month: '2-digit',
-            year: '2-digit',
-            hour: '2-digit',
-            minute: '2-digit',
-        })
-    )
+    const fetchState = useFetch<IChargingStateResponse>(statusApi.getStatus)
 
-    useEffect(() => {
-        setFetchState((prev) => ({ ...prev, status: 'loading', data: [], error: null }))
-        const fetchData = async () => {
-            try {
-                const jsonData = await statusApi.getStatus()
-                setFetchState((prev) => ({
-                    ...prev,
-                    status: 'success',
-                    data: jsonData.chargingStates,
-                    error: null,
-                }))
-            } catch (error) {
-                if (error instanceof Error) {
-                    setFetchState((prev) => ({
-                        ...prev,
-                        status: 'failed',
-                        error,
-                        data: [],
-                    }))
-                }
-            }
-        }
-        void fetchData()
-    }, [])
+    const data = fetchState.data?.chargingStates?.map((item) => item.chargingLevel) ?? []
+    const xLabels =
+        fetchState.data?.chargingStates?.map((item) =>
+            new Date(item.date).toLocaleTimeString('en-GB', {
+                day: '2-digit',
+                month: '2-digit',
+                year: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+            })
+        ) ?? []
 
     switch (fetchState.status) {
         case 'idle':

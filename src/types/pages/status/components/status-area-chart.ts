@@ -1,4 +1,4 @@
-export interface IChargingState {
+interface IChargingState {
     date: string
     chargingLevel: number
     internalEventId: number
@@ -10,13 +10,13 @@ export interface IChargingStateResponse {
 
 interface TFetchStatusIdle {
     status: 'idle'
-    data: never[]
+    data: null
     error: null
 }
 
 interface TFetchStatusLoading {
     status: 'loading'
-    data: never[]
+    data: null
     error: null
 }
 
@@ -28,7 +28,7 @@ interface TFetchStatusSuccess<T> {
 
 interface TFetchStatusFailed {
     status: 'failed'
-    data: never[]
+    data: null
     error: Error
 }
 

@@ -1,3 +1,5 @@
+import { CONSTANTS } from '@/constants'
+
 interface IChargingState {
     date: string
     chargingLevel: number
@@ -9,25 +11,25 @@ export interface IChargingStateResponse {
 }
 
 interface TFetchStatusIdle {
-    status: 'idle'
+    status: typeof CONSTANTS.idle
     data: null
     error: null
 }
 
 interface TFetchStatusLoading {
-    status: 'loading'
+    status: typeof CONSTANTS.loading
     data: null
     error: null
 }
 
 interface TFetchStatusSuccess<T> {
-    status: 'success'
+    status: typeof CONSTANTS.success
     data: T
     error: null
 }
 
 interface TFetchStatusFailed {
-    status: 'failed'
+    status: typeof CONSTANTS.failed
     data: null
     error: Error
 }
